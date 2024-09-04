@@ -11,4 +11,5 @@ router.register(r'post-user', UserPostViewSet, basename='post-user')
 
 urlpatterns = [
     path('', include(router.urls)),
+
 ]
