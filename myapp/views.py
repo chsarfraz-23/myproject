@@ -27,4 +27,4 @@ class UserViewSet(ListModelMixin,
 class ProductTypesViewSet(viewsets.ModelViewSet):
     queryset = ProductTypes.objects.all()
     serializer_class = ProductTypeSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
