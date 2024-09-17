@@ -28,7 +28,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'oauth2_provider',
     'social_django',
-    'rest_framework_social_oauth2'
+    'rest_framework_social_oauth2',
+    'django_crontab',
+
 ]
 
 MIDDLEWARE = [
@@ -145,3 +147,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
