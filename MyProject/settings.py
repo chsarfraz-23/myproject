@@ -2,10 +2,11 @@ import os
 from pathlib import Path
 
 from django.template.context_processors import media
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+load_dotenv()
 
 SECRET_KEY = 'django-insecure-kid+fa=$(vzr_p$i4&wce&=uay(h=zn-4a(vq)nb!h1^b-4kpp'
 
@@ -27,8 +28,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'oauth2_provider',
     'social_django',
-    'drf_social_oauth2',
-    'corsheaders',
+    'rest_framework_social_oauth2'
 ]
 
 MIDDLEWARE = [
@@ -39,18 +39,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware'
 ]
+
+
+DRFSO2_URL_NAMESPACE = 'drf'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
+
 ROOT_URLCONF = 'MyProject.urls'
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-
-    'social_django.context_processors.backends',
-    'social_django.context_processors.login_redirect',
-)
 
 
 TEMPLATES = [
@@ -76,15 +74,29 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
         'drf_social_oauth2.authentication.SocialAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
     ),
 }
 
 
 AUTHENTICATION_BACKENDS = (
-   'drf_social_oauth2.backends.DjangoOAuth2',
-   'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.google.GoogleOAuth2',
+    'drf_social_oauth2.backends.DjangoOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile',
+]
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv(
+    "SOCIAL_AUTH_GOOGLE_OAUTH2_KEY", default="SOCIAL_AUTH_GOOGLE_OAUTH2_KEY"
+)
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv(
+    "SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET", default="SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET"
+)
 
 WSGI_APPLICATION = 'MyProject.wsgi.application'
 
@@ -92,8 +104,7 @@ WSGI_APPLICATION = 'MyProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / ''
-                           'db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
