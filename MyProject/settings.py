@@ -30,7 +30,6 @@ INSTALLED_APPS = [
     'social_django',
     'rest_framework_social_oauth2',
     'django_crontab',
-
 ]
 
 MIDDLEWARE = [
@@ -139,7 +138,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 
@@ -148,3 +147,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CRONJOBS = [
+    ('*/1 * * * *', 'myapp.crone.tasks.my_crone_task'),
+    # Add more cron jobs as needed
+]
