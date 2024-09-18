@@ -1,4 +1,6 @@
 import os
+from email.policy import default
+from os import getenv
 from pathlib import Path
 
 from django.template.context_processors import media
@@ -151,3 +153,16 @@ CRONJOBS = [
     ('*/1 * * * *', 'myapp.crone.tasks.my_crone_task'),
     # Add more cron jobs as needed
 ]
+
+
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT", default=587)
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", default=True)
+
+
+""" 
+    "MY_APP" password  for email smtp = qrug tile wabc pzmn
+
+"""
