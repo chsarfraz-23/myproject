@@ -114,6 +114,8 @@ DATABASES = {
 
 AUTH_USER_MODEL = "myapp.User"
 
+DJANGO_SETTINGS_MODULE  = "myproject.settings"
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
